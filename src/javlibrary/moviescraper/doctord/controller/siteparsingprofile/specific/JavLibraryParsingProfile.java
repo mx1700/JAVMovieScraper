@@ -46,7 +46,9 @@ import moviescraper.doctord.model.preferences.MoviescraperPreferences;
 public class JavLibraryParsingProfile extends SiteParsingProfile implements SpecificProfile {
 
 	private String siteLanguageToScrape;
-	
+
+	public static final String domain = "c32r.com";
+	//public static final String domain = "javlibrary.com";
 	public static final String englishLanguageCode = "en";
 	public static final String japaneseLanguageCode = "ja";
 	public static final String taiwaneseLanguageCode = "tw";
@@ -82,7 +84,7 @@ public class JavLibraryParsingProfile extends SiteParsingProfile implements Spec
 	}
 	
 	private String determineLanguageToUse() {
-		return MoviescraperPreferences.getInstance().getScrapeInJapanese() ? "ja" : "en";
+		return MoviescraperPreferences.getInstance().getScrapeInJapanese() ? "ja" : "cn";
 	}
 	
 	public JavLibraryParsingProfile(Document document, String siteLanguageToScrape)
@@ -124,7 +126,7 @@ public class JavLibraryParsingProfile extends SiteParsingProfile implements Spec
 			return new OriginalTitle(scrapeTitle().getTitle());
 		
 		try {
-			String japaneseUrl = document.location().replace("javlibrary.com/" + siteLanguageToScrape + "/", "javlibrary.com/" + japaneseLanguageCode + "/");			
+			String japaneseUrl = document.location().replace(domain + "/" + siteLanguageToScrape + "/", domain + "/" + japaneseLanguageCode + "/");
 			Document japaneseDoc = Jsoup.connect(japaneseUrl).userAgent(getRandomUserAgent()).timeout(CONNECTION_TIMEOUT_VALUE).get();
 			JavLibraryParsingProfile profile = new JavLibraryParsingProfile(japaneseDoc, japaneseLanguageCode);
 			return profile.scrapeOriginalTitle();
@@ -392,7 +394,7 @@ public class JavLibraryParsingProfile extends SiteParsingProfile implements Spec
 		URLCodec codec = new URLCodec();
 		try {
 			String fileNameURLEncoded = codec.encode(fileNameNoExtension);
-			String searchTerm = "http://www.javlibrary.com/" + siteLanguageToScrape + "/vl_searchbyid.php?keyword=" + fileNameURLEncoded;
+			String searchTerm = "http://www." + domain + "/" + siteLanguageToScrape + "/vl_searchbyid.php?keyword=" + fileNameURLEncoded;
 			
 			return searchTerm;
 					
@@ -409,7 +411,7 @@ public class JavLibraryParsingProfile extends SiteParsingProfile implements Spec
 	public SearchResult[] getSearchResults(String searchString) throws IOException {
 		
 		ArrayList<SearchResult> linksList = new ArrayList<>();
-		String websiteURLBegin = "http://www.javlibrary.com/" + siteLanguageToScrape;
+		String websiteURLBegin = "http://www." + domain + "/" + siteLanguageToScrape;
 		try{
 		Document doc = Jsoup.connect(searchString).userAgent("Mozilla").ignoreHttpErrors(true).timeout(SiteParsingProfile.CONNECTION_TIMEOUT_VALUE).get();
 		//The search found the page directly
