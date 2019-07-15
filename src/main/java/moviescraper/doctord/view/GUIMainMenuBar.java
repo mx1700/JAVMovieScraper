@@ -80,9 +80,9 @@ public class GUIMainMenuBar extends JMenuBar {
 	private void initializePreferencesMenu() {
 
 		//Set up the preferences menu
-		JMenu preferenceMenu = new JMenu("Preferences");
+		JMenu preferenceMenu = new JMenu("偏好");
 		preferenceMenu.setMnemonic(KeyEvent.VK_P);
-		preferenceMenu.getAccessibleContext().setAccessibleDescription("Preferences for JAVMovieScraper");
+		preferenceMenu.getAccessibleContext().setAccessibleDescription("偏好设置");
 		createAllCheckBoxMenusForPreferencesMenu(preferenceMenu);
 		add(preferenceMenu);
 
@@ -102,10 +102,10 @@ public class GUIMainMenuBar extends JMenuBar {
 	}
 
 	private JMenu createCleanUpFileNameMenu() {
-		JMenu submenu = new JMenu("Clean Up File Name");
+		JMenu submenu = new JMenu("清理文件名");
 
 		//Checkbox for whether the user needs to manually confirm the results of each clean up file operation	
-		JCheckBoxMenuItem confirmNameForFileNameCleanup = createCheckBoxMenuItem("Confirm New Name Each Time for \"Clean Up File Name\"",
+		JCheckBoxMenuItem confirmNameForFileNameCleanup = createCheckBoxMenuItem("每次清理时都需要手工确认",
 		        b -> getPreferences().setConfirmCleanUpFileNameNameBeforeRenaming(b), () -> getPreferences().getConfirmCleanUpFileNameNameBeforeRenaming());
 		submenu.add(confirmNameForFileNameCleanup);
 
@@ -113,25 +113,25 @@ public class GUIMainMenuBar extends JMenuBar {
 	}
 
 	private JMenu createRenamingMenu() {
-		JMenu submenu = new JMenu("Renaming");
+		JMenu submenu = new JMenu("重命名");
 
 		//Checkbox for renaming Movie file
-		JCheckBoxMenuItem renameMovieFile = createCheckBoxMenuItem("Enable Renaming When Writing File Data", b -> getPreferences().setRenameMovieFile(b), () -> getPreferences().getRenameMovieFile());
+		JCheckBoxMenuItem renameMovieFile = createCheckBoxMenuItem("保存文件时自动重命名", b -> getPreferences().setRenameMovieFile(b), () -> getPreferences().getRenameMovieFile());
 		submenu.add(renameMovieFile);
 
 		return submenu;
 	}
 
 	private JMenu createModifiyScrapedResultsByMenu() {
-		JMenu submenu = new JMenu("Modify Scraped Results By");
+		JMenu submenu = new JMenu("修改刮削结果");
 
 		//Checkbox for option to append the ID to start of the title field
-		JCheckBoxMenuItem appendIDToStartOfTitle = createCheckBoxMenuItem("Appending ID to Start of Title Field When Scraping", b -> getPreferences().setAppendIDToStartOfTitle(b),
+		JCheckBoxMenuItem appendIDToStartOfTitle = createCheckBoxMenuItem("标题头部增加番号", b -> getPreferences().setAppendIDToStartOfTitle(b),
 		        () -> getPreferences().getAppendIDToStartOfTitle());
 		submenu.add(appendIDToStartOfTitle);
 
 		//Checkbox for option to use file name as the scraped title every time
-		JCheckBoxMenuItem useFilenameAsScrapedMovieTitle = createCheckBoxMenuItem("Title Field is Always Set as Filename", b -> getPreferences().setUseFileNameAsTitle(b),
+		JCheckBoxMenuItem useFilenameAsScrapedMovieTitle = createCheckBoxMenuItem("标题字段总是使用文件名", b -> getPreferences().setUseFileNameAsTitle(b),
 		        () -> getPreferences().getUseFileNameAsTitle());
 		submenu.add(useFilenameAsScrapedMovieTitle);
 
@@ -165,10 +165,10 @@ public class GUIMainMenuBar extends JMenuBar {
 	}
 
 	private JMenu createScrapingSearchOptionsMenu() {
-		JMenu submenu = new JMenu("Scraping Search Options");
+		JMenu submenu = new JMenu("刮削选项");
 
 		//Checkbox for option if the ID is just considered the first word in the file
-		JCheckBoxMenuItem isFirstWordOfFileID = createCheckBoxMenuItem("Use First Word of File for ID Instead of Last", b -> getPreferences().setIsFirstWordOfFileID(b),
+		JCheckBoxMenuItem isFirstWordOfFileID = createCheckBoxMenuItem("番号再文件名头部(默认尾部)", b -> getPreferences().setIsFirstWordOfFileID(b),
 		        () -> getPreferences().getIsFirstWordOfFileID());
 		submenu.add(isFirstWordOfFileID);
 
@@ -176,10 +176,10 @@ public class GUIMainMenuBar extends JMenuBar {
 	}
 
 	private JMenu createTranslationMenu() {
-		JMenu submenu = new JMenu("Translation");
+		JMenu submenu = new JMenu("翻译");
 
 		//Checkbox for scraping JAV files in japanese instead of english when clicking scrape jav
-		JCheckBoxMenuItem scrapeInJapanese = createCheckBoxMenuItem("Scrape JAV Movies in Japanese Instead of English", b -> getPreferences().setScrapeInJapanese(b),
+		JCheckBoxMenuItem scrapeInJapanese = createCheckBoxMenuItem("刮削日文信息(默认英语)", b -> getPreferences().setScrapeInJapanese(b),
 		        () -> getPreferences().getScrapeInJapanese());
 		submenu.add(scrapeInJapanese);
 
@@ -187,15 +187,15 @@ public class GUIMainMenuBar extends JMenuBar {
 	}
 
 	private JMenu createFileCreationMenu() {
-		JMenu submenu = new JMenu("File Creation");
+		JMenu submenu = new JMenu("文件创建");
 
 		//Checkbox for writing fanart and poster
-		JCheckBoxMenuItem writeFanartAndPosters = createCheckBoxMenuItem("Write Fanart and Poster Images", b -> getPreferences().setWriteFanartAndPostersPreference(b),
+		JCheckBoxMenuItem writeFanartAndPosters = createCheckBoxMenuItem("保存封面和海报图片", b -> getPreferences().setWriteFanartAndPostersPreference(b),
 		        () -> getPreferences().getWriteFanartAndPostersPreference());
 		submenu.add(writeFanartAndPosters);
 
 		//Checkbox for overwriting writing actors to .actor folder	
-		JCheckBoxMenuItem writeActorImages = createCheckBoxMenuItem("Write Actor Images", b -> getPreferences().setDownloadActorImagesToActorFolderPreference(b),
+		JCheckBoxMenuItem writeActorImages = createCheckBoxMenuItem("保存演员图片", b -> getPreferences().setDownloadActorImagesToActorFolderPreference(b),
 		        () -> getPreferences().getDownloadActorImagesToActorFolderPreference());
 		submenu.add(writeActorImages);
 
@@ -210,27 +210,27 @@ public class GUIMainMenuBar extends JMenuBar {
 		submenu.add(createFolderJpg);
 
 		//Checkbox for writing the trailer to file
-		JCheckBoxMenuItem writeTrailerToFile = createCheckBoxMenuItem("Download and Write Trailer To File (Warning: Slow)", b -> getPreferences().setWriteTrailerToFile(b),
+		JCheckBoxMenuItem writeTrailerToFile = createCheckBoxMenuItem("下载预告片并将其写入文件", b -> getPreferences().setWriteTrailerToFile(b),
 		        () -> getPreferences().getWriteTrailerToFile());
 		submenu.add(writeTrailerToFile);
 
 		//Checkbox for overwriting fanart and poster
-		JCheckBoxMenuItem overwriteFanartAndPosters = createCheckBoxMenuItem("Overwrite Fanart, Poster, and folder.jpg Files", b -> getPreferences().setOverWriteFanartAndPostersPreference(b),
+		JCheckBoxMenuItem overwriteFanartAndPosters = createCheckBoxMenuItem("覆盖 Fanart, Poster folder.jpg 文件", b -> getPreferences().setOverWriteFanartAndPostersPreference(b),
 		        () -> getPreferences().getOverWriteFanartAndPostersPreference());
 		submenu.add(overwriteFanartAndPosters);
 
 		//Checkbox for using fanart.jpg and poster.jpg, not moviename-fanart.jpg and moviename-poster.jpg
-		JCheckBoxMenuItem noMovieNameInImageFiles = createCheckBoxMenuItem("Save poster and fanart as fanart.jpg and poster.jpg instead of moviename-fanart.jpg and moviename-poster.jpg",
+		JCheckBoxMenuItem noMovieNameInImageFiles = createCheckBoxMenuItem("封面和还报文件保存为 fanart.jpg 和 poster.jpg(默认为 [movie]-fanart.jpg 和 moviename-poster.jpg)",
 		        b -> getPreferences().setNoMovieNameInImageFiles(b), () -> getPreferences().getNoMovieNameInImageFiles());
 		submenu.add(noMovieNameInImageFiles);
 
 		//Checkbox for naming .nfo file movie.nfo instead of using movie name in file
-		JCheckBoxMenuItem nfoNamedMovieDotNfo = createCheckBoxMenuItem(".nfo file named movie.nfo instead of using movie name", b -> getPreferences().setNfoNamedMovieDotNfo(b),
+		JCheckBoxMenuItem nfoNamedMovieDotNfo = createCheckBoxMenuItem(".nfo 文件保存为 movie.nfo (默认是影片番号)", b -> getPreferences().setNfoNamedMovieDotNfo(b),
 		        () -> getPreferences().getNfoNamedMovieDotNfo());
 		submenu.add(nfoNamedMovieDotNfo);
 
 		//Checkbox for whether to write the <thumb> tags into the nfo file
-		JCheckBoxMenuItem writeThumbTagsForPosterAndFanartToNfo = createCheckBoxMenuItem("Write <thumb> tags for poster and fanart into .nfo file",
+		JCheckBoxMenuItem writeThumbTagsForPosterAndFanartToNfo = createCheckBoxMenuItem("图片信息保存到 .nfo 文件",
 		        b -> getPreferences().setWriteThumbTagsForPosterAndFanartToNfo(b), () -> getPreferences().getWriteThumbTagsForPosterAndFanartToNfo());
 		submenu.add(writeThumbTagsForPosterAndFanartToNfo);
 
@@ -239,15 +239,15 @@ public class GUIMainMenuBar extends JMenuBar {
 
 	private void initializeSettingsMenu() {
 
-		JMenu settingsMenu = new JMenu("Settings");
+		JMenu settingsMenu = new JMenu("设置");
 		settingsMenu.setMnemonic(KeyEvent.VK_S);
 
 		// This is a scraping preference but fits better under the Settings menu
-		JMenuItem scrapersMenuItem = new JMenuItem("Amalgamation Settings...");
+		JMenuItem scrapersMenuItem = new JMenuItem("刮削器组合设置...");
 		scrapersMenuItem.addActionListener(new SelectAmalgamationSettingsAction(guiMain));
 		settingsMenu.add(scrapersMenuItem);
 
-		JMenuItem renameSettings = new JMenuItem("Rename Settings...");
+		JMenuItem renameSettings = new JMenuItem("重命名设置...");
 		renameSettings.addActionListener(new ActionListener() {
 			@SuppressWarnings("unused") //simply calling the new for RenamerGUI below will show the dialog
 			@Override
@@ -263,15 +263,15 @@ public class GUIMainMenuBar extends JMenuBar {
 		});
 		settingsMenu.add(renameSettings);
 
-		JMenuItem favoriteGenresMenuItem = new JMenuItem("Favorite Genres...");
+		JMenuItem favoriteGenresMenuItem = new JMenuItem("最爱的类型...");
 		favoriteGenresMenuItem.addActionListener(new ChooseFavoriteGenresAction(guiMain));
 		settingsMenu.add(favoriteGenresMenuItem);
 
-		JMenuItem favoriteTagsMenuItem = new JMenuItem("Favorite Tags...");
+		JMenuItem favoriteTagsMenuItem = new JMenuItem("最爱的标签...");
 		favoriteTagsMenuItem.addActionListener(new ChooseFavoriteTagsAction(guiMain));
 		settingsMenu.add(favoriteTagsMenuItem);
 
-		JMenuItem externalMediaPlayerPickerMenu = new JMenuItem("Pick External Media Player...");
+		JMenuItem externalMediaPlayerPickerMenu = new JMenuItem("选择外部播放器...");
 		externalMediaPlayerPickerMenu.addActionListener(new ChooseExternalMediaPlayerAction());
 		settingsMenu.add(externalMediaPlayerPickerMenu);
 
@@ -281,19 +281,19 @@ public class GUIMainMenuBar extends JMenuBar {
 	private void initializeFileMenu() {
 		// File menu
 
-		JMenu fileMenu = new JMenu("File");
+		JMenu fileMenu = new JMenu("文件");
 		fileMenu.setMnemonic(KeyEvent.VK_F);
 		fileMenu.getAccessibleContext().setAccessibleDescription("File actions for JAVMovieScraper");
 
 		//Browse directory file menu
-		JMenuItem browseDirectory = new JMenuItem("Browse directory...");
+		JMenuItem browseDirectory = new JMenuItem("浏览文件夹...");
 		browseDirectory.setMnemonic(KeyEvent.VK_B);
 		browseDirectory.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B, Event.CTRL_MASK));
 		browseDirectory.addActionListener(new BrowseDirectoryAction(guiMain));
 		fileMenu.add(browseDirectory);
 
 		//Refresh file menu
-		JMenuItem refreshDirectory = new JMenuItem("Refresh");
+		JMenuItem refreshDirectory = new JMenuItem("刷新");
 		refreshDirectory.setMnemonic(KeyEvent.VK_R);
 		refreshDirectory.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, Event.CTRL_MASK));
 		refreshDirectory.addActionListener(new RefreshDirectoryAction(guiMain));
@@ -302,19 +302,19 @@ public class GUIMainMenuBar extends JMenuBar {
 		fileMenu.addSeparator();
 
 		//Open file menu
-		JMenuItem openFile = new JMenuItem("Open File");
+		JMenuItem openFile = new JMenuItem("打开文件");
 		openFile.setMnemonic(KeyEvent.VK_O);
 		openFile.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, Event.CTRL_MASK));
 		openFile.addActionListener(new OpenFileAction(guiMain));
 		fileMenu.add(openFile);
 
-		JMenuItem playMovie = new JMenuItem("Play Movie");
+		JMenuItem playMovie = new JMenuItem("播放影片");
 		playMovie.setMnemonic(KeyEvent.VK_P);
 		playMovie.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, Event.CTRL_MASK));
 		playMovie.addActionListener(new PlayMovieAction(guiMain));
 		fileMenu.add(playMovie);
 
-		writeFileMenuItem = new JMenuItem("Write File Data");
+		writeFileMenuItem = new JMenuItem("保存信息文件");
 		writeFileMenuItem.setToolTipText("Write out the .nfo file to disk. The movie must have a title for this to be enabled.");
 		writeFileMenuItem.setEnabled(false); //this becomes enabled later when there is an actual movie to write
 		writeFileMenuItem.setMnemonic(KeyEvent.VK_W);
@@ -322,13 +322,13 @@ public class GUIMainMenuBar extends JMenuBar {
 		writeFileMenuItem.addActionListener(new WriteFileDataAction(guiMain));
 		fileMenu.add(writeFileMenuItem);
 
-		JMenuItem moveFile = new JMenuItem("Move File to New Folder");
+		JMenuItem moveFile = new JMenuItem("移动到新文件夹");
 		moveFile.setMnemonic(KeyEvent.VK_M);
 		moveFile.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M, Event.CTRL_MASK));
 		moveFile.addActionListener(new MoveToNewFolderAction(guiMain));
 		fileMenu.add(moveFile);
 
-		JMenuItem cleanFile = new JMenuItem("Clean up File Name");
+		JMenuItem cleanFile = new JMenuItem("清理文件名");
 		cleanFile.setMnemonic(KeyEvent.VK_C);
 		cleanFile.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, Event.CTRL_MASK));
 		cleanFile.addActionListener(new FileNameCleanupAction(guiMain));
@@ -337,7 +337,7 @@ public class GUIMainMenuBar extends JMenuBar {
 		fileMenu.addSeparator();
 
 		//Exit file menu
-		JMenuItem exit = new JMenuItem("Exit");
+		JMenuItem exit = new JMenuItem("退出");
 		exit.setMnemonic(KeyEvent.VK_E);
 		exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, Event.CTRL_MASK));
 		exit.addActionListener(new ActionListener() {
@@ -353,10 +353,10 @@ public class GUIMainMenuBar extends JMenuBar {
 
 	private void initializeViewMenu() {
 
-		JMenu viewMenu = new JMenu("View");
+		JMenu viewMenu = new JMenu("视图");
 		viewMenu.setMnemonic(KeyEvent.VK_V);
 
-		JMenuItem consoleInSeperateWindowMenuItem = new JMenuItem("View Output In New Window");
+		JMenuItem consoleInSeperateWindowMenuItem = new JMenuItem("视图输出到新窗口");
 		consoleInSeperateWindowMenuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -364,7 +364,7 @@ public class GUIMainMenuBar extends JMenuBar {
 			}
 		});
 
-		JCheckBoxMenuItem consolePanelMenuItem = new JCheckBoxMenuItem("Show Output Panel");
+		JCheckBoxMenuItem consolePanelMenuItem = new JCheckBoxMenuItem("显示调试输出面板");
 		consolePanelMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F12, 0));
 		consolePanelMenuItem.setState(guiMain.getGuiSettings().getShowOutputPanel());
 		consolePanelMenuItem.addItemListener(new ItemListener() {
@@ -378,7 +378,7 @@ public class GUIMainMenuBar extends JMenuBar {
 			}
 		});
 
-		JCheckBoxMenuItem buttonPanelMenuItem = new JCheckBoxMenuItem("Show Tool Bar");
+		JCheckBoxMenuItem buttonPanelMenuItem = new JCheckBoxMenuItem("显示工具栏");
 		buttonPanelMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F11, 0));
 		buttonPanelMenuItem.setState(guiMain.getGuiSettings().getShowToolbar());
 		buttonPanelMenuItem.addItemListener(new ItemListener() {
@@ -401,7 +401,7 @@ public class GUIMainMenuBar extends JMenuBar {
 	}
 
 	private void initializeScrapeMenu() {
-		JMenu scrapeMenu = new JMenu("Scrape");
+		JMenu scrapeMenu = new JMenu("刮削器");
 		scrapeMenu.setMnemonic(KeyEvent.VK_S);
 
 		JMenuItem scrapeAdultDVDAmalgamated = new JMenuItem(
@@ -417,7 +417,7 @@ public class GUIMainMenuBar extends JMenuBar {
 		scrapeMenu.add(scrapeAdultDVDAmalgamated);
 		scrapeMenu.add(scrapeJAVAmalgamated);
 
-		JMenu specificMenu = new JMenu("Specific Scrape");
+		JMenu specificMenu = new JMenu("特殊刮削器");
 		scrapeMenu.add(specificMenu);
 
 		int i = 0;

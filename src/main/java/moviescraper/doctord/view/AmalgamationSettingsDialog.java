@@ -96,7 +96,8 @@ public class AmalgamationSettingsDialog {
 		northPanelLayoutManager.setVgap(layoutVerticalGap);
 		JPanel northPanel = new JPanel(northPanelLayoutManager);
 		JLabel helpMessage = new JLabel(
-		        "<html>Select the scrapers you wish to use and the preferred order of each item to use when amalgamating data from the same scraping group.<br>Higher numbered items have precedence over lower numbered items.<br> Any scrapers disabled under \"Default Ordering\" will not scrape at all, even if enabled in the specific ordering section.</html>");
+		        "<html>选择要使用的刮刀以及合并同一刮刀组中的数据时要使用的每个项目的首选顺序。" +
+						"<br>在“默认排序”下禁用的任何刮削器都不会刮削，即使在特定排序部分中启用也是如此</html>");
 		northPanel.add(helpMessage, BorderLayout.SOUTH);
 		JPanel scraperGroupNameComboPanel = new JPanel();
 		scraperGroupNameComboPanel.add(new JLabel("Scraper Group:"));
@@ -227,7 +228,7 @@ public class AmalgamationSettingsDialog {
 				DataItemSourceAmalgamationPreference preferenceToSet = new DataItemSourceAmalgamationPreference(sppiAllValues);
 				amalgamationPreferences.getScraperGroupAmalgamationPreference((ScraperGroupName) scraperGroupNameComboBox.getSelectedItem()).setCustomOrderingForField(selectedMovieField,
 				        preferenceToSet);
-				panelHeaderSpecificFieldAmalgamationPreference.setText("<html> Using <b>Specific</b> Ordering for " + getNameOfCurrentMovieFieldSelected() + "</html>");
+				panelHeaderSpecificFieldAmalgamationPreference.setText("<html> 使用 <b>特殊</b> 排序在" + getNameOfCurrentMovieFieldSelected() + "</html>");
 			}
 		}
 	}
@@ -281,7 +282,7 @@ public class AmalgamationSettingsDialog {
 
 	private JButton createDisableButton(final JList<DataItemSource> amalgamationPreferenceList, final DefaultListModel<DataItemSource> amalgamationPreferenceListModel,
 	        final boolean isOverallPrefSync) {
-		JButton disableButton = new JButton("<html><font color='green'>Enable</font> / <font color='red'><strike>Disable</strike></font></html>");
+		JButton disableButton = new JButton("<html><font color='green'>启用</font> / <font color='red'><strike>禁用</strike></font></html>");
 		disableButton.addActionListener(new ActionListener() {
 
 			@Override
