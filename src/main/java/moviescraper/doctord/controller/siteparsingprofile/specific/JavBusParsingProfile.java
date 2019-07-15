@@ -44,7 +44,8 @@ import moviescraper.doctord.model.dataitem.Year;
 
 public class JavBusParsingProfile extends SiteParsingProfile implements SpecificProfile {
 
-	public static final String urlLanguageEnglish = "en";
+//	public static final String urlLanguageEnglish = "en";
+	public static final String urlLanguageEnglish = "";
 	public static final String urlLanguageJapanese = "ja";
 	//JavBus divides movies into two categories - censored and uncensored.
 	//All censored movies need cropping of their poster
@@ -118,7 +119,7 @@ public class JavBusParsingProfile extends SiteParsingProfile implements Specific
 
 	@Override
 	public Set scrapeSet() {
-		String seriesWord = (scrapingLanguage == Language.ENGLISH) ? "Series:" : "シリーズ:";
+		String seriesWord = (scrapingLanguage == Language.ENGLISH) ? "類別:" : "シリーズ:";
 		Element setElement = document.select("span.header:containsOwn(" + seriesWord + ") ~ a").first();
 		if (setElement != null && setElement.text().length() > 0) {
 			String setText = setElement.text();
@@ -142,7 +143,7 @@ public class JavBusParsingProfile extends SiteParsingProfile implements Specific
 
 	@Override
 	public ReleaseDate scrapeReleaseDate() {
-		String releaseDateWord = (scrapingLanguage == Language.ENGLISH) ? "Release Date:" : "発売日:";
+		String releaseDateWord = (scrapingLanguage == Language.ENGLISH) ? "發行日期:" : "発売日:";
 		Element releaseDateElement = document.select("p:contains(" + releaseDateWord + ")").first();
 		if (releaseDateElement != null && releaseDateElement.ownText().trim().length() > 4) {
 			String releaseDateText = releaseDateElement.ownText().trim();
@@ -178,11 +179,12 @@ public class JavBusParsingProfile extends SiteParsingProfile implements Specific
 
 	@Override
 	public Runtime scrapeRuntime() {
-		String lengthWord = (scrapingLanguage == Language.ENGLISH) ? "Length:" : "収録時間:";
+		String lengthWord = (scrapingLanguage == Language.ENGLISH) ? "長度:" : "収録時間:";
 		Element lengthElement = document.select("p:contains(" + lengthWord + ")").first();
 		if (lengthElement != null && lengthElement.ownText().trim().length() >= 0) {
 			//Getting rid of the word "min" in both Japanese and English
 			String runtimeText = lengthElement.ownText().trim().replace("min", "");
+			runtimeText = runtimeText.replace("分鐘", "");
 			runtimeText = runtimeText.replace("分", "");
 			return new Runtime(runtimeText);
 		}
@@ -259,7 +261,11 @@ public class JavBusParsingProfile extends SiteParsingProfile implements Specific
 				if (genreElement.text().length() > 0) {
 					//some genre elements are untranslated, even on the english site, so we need to do it ourselves
 					if (scrapingLanguage == Language.ENGLISH && JapaneseCharacter.containsJapaneseLetter(genreText)) {
-						genreText = TranslateString.translateStringJapaneseToEnglish(genreText);
+						//todo:
+						//genreText = TranslateString.translateStringJapaneseToEnglish(genreText);
+					}
+					if(scrapingLanguage == Language.ENGLISH) {
+						genreText = TranslateString.convertToSimple(genreText);
 					}
 					genreList.add(new Genre(WordUtils.capitalize(genreText)));
 				}
@@ -297,7 +303,7 @@ public class JavBusParsingProfile extends SiteParsingProfile implements Specific
 	@Override
 	public ArrayList<Director> scrapeDirectors() {
 		ArrayList<Director> directorList = new ArrayList<>();
-		String directorWord = (scrapingLanguage == Language.ENGLISH) ? "Director:" : "監督:";
+		String directorWord = (scrapingLanguage == Language.ENGLISH) ? "導演:" : "監督:";
 		Element directorElement = document.select("span.header:containsOwn(" + directorWord + ") ~ a").first();
 		if (directorElement != null && directorElement.text().length() > 0) {
 			directorList.add(new Director(directorElement.text(), null));
@@ -307,7 +313,7 @@ public class JavBusParsingProfile extends SiteParsingProfile implements Specific
 
 	@Override
 	public Studio scrapeStudio() {
-		String studioWord = (scrapingLanguage == Language.ENGLISH) ? "Studio:" : "メーカー:";
+		String studioWord = (scrapingLanguage == Language.ENGLISH) ? "製作商:" : "メーカー:";
 		Element studioElement = document.select("span.header:containsOwn(" + studioWord + ") ~ a").first();
 		if (studioElement != null && studioElement.text().length() > 0) {
 			return new Studio(studioElement.text());

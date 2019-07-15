@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.github.houbb.opencc4j.util.ZhConverterUtil;
 import moviescraper.doctord.controller.siteparsingprofile.SiteParsingProfile;
 
 import org.apache.commons.lang3.text.WordUtils;
@@ -30,20 +31,26 @@ public class TranslateString {
 	}
 
 	public static String translateStringJapaneseToEnglish(String japaneseKanjiString) {
-		StringBuilder englishStringBuilder = new StringBuilder();
-		try {
-			Map<String, String> data = new HashMap<>();
-			data.put("text", japaneseKanjiString);
-			data.put("lang_from", "ja");
-			data.put("resulsts", "");
-			data.put("lang", "en");
-			Document doc = Jsoup.connect("https://grammarchecker.net/translate/ajax.php").referrer("https://grammarchecker.net/translate/")
-			        .userAgent("Mozilla/5.0 (Windows NT 6.1; WOW64; rv:5.0) Gecko/20100101 Firefox/5.0").timeout(SiteParsingProfile.CONNECTION_TIMEOUT_VALUE).data(data).post();
-			englishStringBuilder.append(doc.select("#results").first().text());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return englishStringBuilder.toString(); //return a blank translation in case of error for now
+		//return;
+		return japaneseKanjiString;
+//		StringBuilder englishStringBuilder = new StringBuilder();
+//		try {
+//			Map<String, String> data = new HashMap<>();
+//			data.put("text", japaneseKanjiString);
+//			data.put("lang_from", "ja");
+//			data.put("resulsts", "");
+//			data.put("lang", "en");
+//			Document doc = Jsoup.connect("https://grammarchecker.net/translate/ajax.php").referrer("https://grammarchecker.net/translate/")
+//			        .userAgent("Mozilla/5.0 (Windows NT 6.1; WOW64; rv:5.0) Gecko/20100101 Firefox/5.0").timeout(SiteParsingProfile.CONNECTION_TIMEOUT_VALUE).data(data).post();
+//			englishStringBuilder.append(doc.select("#results").first().text());
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return englishStringBuilder.toString(); //return a blank translation in case of error for now
+	}
+
+	public static String convertToSimple(String str) {
+		return ZhConverterUtil.convertToSimple(str);
 	}
 }
